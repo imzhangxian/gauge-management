@@ -9,25 +9,37 @@ router.get('/', (req, res) => {
         if (!err) {
             res.json(results.rows)
         } else {
-            res.json({error:err})
+            console.log(err)
+            res.status(500).send('Internal error')
         }
     })
 })
 
 // @get api/watermeters/:id retrieve meter via ID
 router.get('/:id', (req, res) => {
-    db.query('SELECT * from watermeters where id=$1::integer', [req.params.id], (err, results) => {
+    db.query('SELECT * from watermeters where id=$1', [req.params.id], (err, results) => {
         if (!err) {
             res.json(results.rows[0])
         } else {
-            res.json({error:err})
+            console.log(err)
+            res.status(500).send('Internal error')
         }
     })
 })
 
 // @post api/watermeters create a new water meter
 router.post('/', (req, res) => {
-    const sqltext = 'INSERT into watermeters(number, name, made_by, model, made_on, update_on) VALUES($1, $2, $3, $4, $5, NOW()) RETURNING *'
+    const sqltext = 
+        `INSERT into watermeters(
+                number, 
+                name, 
+                made_by, 
+                model, 
+                made_on, 
+                update_on
+            ) 
+            VALUES($1, $2, $3, $4, $5, NOW()) 
+            RETURNING *`
     const rowdata = [
         req.body.number,
         req.body.name,
@@ -40,20 +52,25 @@ router.post('/', (req, res) => {
             res.json(results.rows[0])
         } else {
             console.log(err)
-            res.status()
+            res.status(500).send('Internal error')
         }
     })
 })
 
 // @delete api/watermeters delete a watermeters
 router.delete('/:id', (req, res) => {
-    db.query('DELETE from watermeters where id=$1::integer', [req.params.id], (err, results) => {
+    db.query('DELETE from watermeters where id=$1', [req.params.id], (err, results) => {
         if (!err) {
-            res.json({success:true})
+            if (results.rowCount == 0) {
+                res.status(404).send('Not found')
+            } else {
+                res.json({success:true})
+            }
         } else {
-            res.json({error:err})
+            console.log(err)
+            res.status(500).send('Internal error')
         }
     })
 });
-  
+
 module.exports = router
