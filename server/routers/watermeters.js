@@ -73,4 +73,6 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+// TODO @put api/watermeters update a watermeter
+
 module.exports = router

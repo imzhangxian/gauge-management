@@ -1,7 +1,8 @@
 require('dotenv').config()
 
 const express = require('express')
-const watermeters = require('./middlewares/watermeters.js')
+const watermeters = require('./routers/watermeters.js')
+const login = require('./routers/login.js')
 
 const server = express()
 
@@ -11,6 +12,7 @@ server.get('/', (req, res) => {
     res.send("Welcome to water meters manager!")
 })
 
+server.use('/login', login)
 server.use('/api/watermeters', watermeters)
 
 // start server
