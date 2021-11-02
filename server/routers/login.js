@@ -25,7 +25,12 @@ router.post('/', (req, resp) => {
                 resp.status(500).json({ success: false, reason: "CRYPTO_ERROR" });
             }
             if (isvaliduser) {
-                const validateduser = {username: results.rows[0]['username'], roles: results.rows[0]['roles'], org: results.rows[0]['org']}
+                const validateduser = {
+                    id: results.rows[0]['id'], 
+                    username: results.rows[0]['username'], 
+                    roles: results.rows[0]['roles'], 
+                    org: results.rows[0]['org']
+                }
                 const accessToken = jwt.sign(validateduser, accessTokenSecret, { expiresIn: '1h' })
                 resp.json({
                   success: true,
