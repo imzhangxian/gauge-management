@@ -91,13 +91,13 @@ router.put('/:id', (req, res) => {
     // TODO: update history audit
     
     sqlparams.push(req.params.id)
-    updatesql += ` where id=$${sqlparams.length}`
+    updatesql += ` where id=$${sqlparams.length} RETURNING *`
     db.query(updatesql, sqlparams, (err, results) => {
         if (!err) {
             if (results.rowCount == 0) {
                 res.status(404).send('Not found')
             } else {
-                res.json({success:true})
+                res.json({success:true, changed:results.rows[0]})
             }
         } else {
             console.log(err)
