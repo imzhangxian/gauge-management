@@ -73,6 +73,37 @@ router.delete('/:id', (req, res) => {
     })
 });
 
-// TODO @put api/watermeters update a watermeter
+// @put api/watermeters update a watermeter
+//  - input: json string with key/value pair to update
+router.put('/:id', (req, res) => {
+    updatesql = 'UPDATE watermeters set '
+    // build update SQL with key/value pairs
+    var sqlparams = []
+    for(var keys = Object.keys(req.body), i = 0, end = keys.length; i < end; i ++) {
+        var key = keys[i]
+        updatesql += `${key}=($${i + 1})`
+        sqlparams.push(req.body[key])
+        if (i + 1 < end) {
+            updatesql += ', '
+        }
+    }
+    // TODO: update_by / update_on
+    // TODO: update history audit
+    
+    sqlparams.push(req.params.id)
+    updatesql += ` where id=$${sqlparams.length}`
+    db.query(updatesql, sqlparams, (err, results) => {
+        if (!err) {
+            if (results.rowCount == 0) {
+                res.status(404).send('Not found')
+            } else {
+                res.json({success:true})
+            }
+        } else {
+            console.log(err)
+            res.status(500).send('Internal error')
+        }
+    })
+});
 
 module.exports = router
