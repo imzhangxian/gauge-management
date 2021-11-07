@@ -1,9 +1,11 @@
-import './App.css';
+import Navbar from "./components/Navbar"
+import Menubar from "./components/Menubar"
 
 function App() {
   return (
-    <div className="App">
-      <span>Meter App</span>
+    <div className="container text-sm mx-auto font-sans">
+      <Navbar />
+      <Menubar />
     </div>
   );
 }
