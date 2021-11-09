@@ -1,28 +1,57 @@
-import { Tab, Menu, Listbox } from '@headlessui/react'
+import { useEffect, useState, useContext } from 'react'
+import { Listbox } from '@headlessui/react'
+import axios from 'axios'
+import { AuthContext } from '../context/AuthContext'
 
 function Meters() {
+  const sortCriteria = {
+    "number": "Sort By Number",
+    "distance": "Sort By Distance"
+  }
+  const [sortBy, setSortBy] = useState('...')
+  const [meters, setMeters] = useState([])
+  const { user } = useContext(AuthContext);
+
+  const fetchMeters = () => {
+    const authConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${user.token}`
+      }
+    }
+    axios.get('api/watermeters', authConfig)
+    .then(res => {
+      console.log("response: " + res.data)
+      setMeters(res.data)
+    })
+    .catch(e => console.log(e))
+  }
+
+  // TODO useEffect initialize
+  useEffect(fetchMeters, [])
+
+  // TODO useEffect sort by
+
   return (
     <div>
       <div className="grid grid-cols-3 md:grid-cols-6 my-3">
-        <button className="col-start-1 col-span-1 p-2 bg-blue-500 hover:bg-blue-200 rounded-md">Add Meter</button>
+        <button className="col-start-1 col-span-1 p-2 bg-blue-500 hover:bg-blue-200 rounded-md hidden md:block">
+          Add Meter
+        </button>
         <div className="relative col-start-3 col-span-1 md:col-start-5 md:col-span-2">
-        <Listbox value={0} onChange={()=>{}}>
-          <Listbox.Button className="relative w-full p-2 bg-yellow-400 hover:bg-yellow-200 rounded-md">{"Sort by ..."}</Listbox.Button>
+        <Listbox value={0} onChange={setSortBy}>
+          <Listbox.Button className="relative w-full p-2 bg-yellow-400 hover:bg-yellow-200 rounded-md">{"Sort by " + sortBy}</Listbox.Button>
           <Listbox.Options className="absolute w-full position p-2 mt-2 bg-yellow-300 rounded-md">
-            <Listbox.Option
-              key={0}
-              value={"distance"}
-              className="p-2 hover:bg-yellow-50 rounded-md"
-            >
-              Sort by Distance
-            </Listbox.Option>
-            <Listbox.Option
-              key={1}
-              value={"number"}
-              className="p-2 hover:bg-yellow-50 rounded-md"
-            >
-              Sort by Number
-            </Listbox.Option>
+            {Object.keys(sortCriteria).map((k, i) => {
+              return (
+              <Listbox.Option
+                key={i}
+                value={k}
+                className="p-2 hover:bg-yellow-50 rounded-md"
+              > {sortCriteria[k]}
+              </Listbox.Option>
+              )
+            })}
           </Listbox.Options>
         </Listbox>
         </div>
@@ -36,22 +65,18 @@ function Meters() {
             <div className="text-left p-2 hover:bg-gray-200 rounded-tr-md">Updated</div>
           </div>
         </li>
-        {(() => {
-          let table = []
-          let classname = "grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-100 hover:bg-blue-50 my-1 shadow-md"
-          for (let i = 0; i < 10; i++) {
-            table.push (
-            <li key={"meter" + i}>
-              <div className={classname}>
-                <div className="text-left p-2">WM020{i}</div>
-                <div className="text-left p-2">Normal meter 0201{i}</div>
-                <div className="text-left p-2 hidden md:block md:col-span-3">No.9 Wangfujin Street, Beijing</div>
-                <div className="text-left p-2">2021-11-5</div>
-              </div>
-            </li>
-            )}
-            return table
-          })()}
+        {meters.map((meter) => {
+          return (
+          <li key={meter.id}>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-100 hover:bg-blue-50 my-1 shadow-md">
+              <div className="text-left p-2">{meter.name}</div>
+              <div className="text-left p-2">{meter.number}</div>
+              <div className="text-left p-2 hidden md:block md:col-span-3">{'N.A.'}</div>
+              <div className="text-left p-2">{meter.updated_on}</div>
+            </div>
+          </li>
+          )
+        })}
       </ul>
     </div>
   )
