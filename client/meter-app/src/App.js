@@ -16,8 +16,8 @@ function App() {
   return (
     <div className="container text-sm mx-auto font-sans">
     <AuthContext.Provider value={ { user, setUser } }>
-      <Navbar />
       <Router>
+      <Navbar />
       <Routes>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element=
