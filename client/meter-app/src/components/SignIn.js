@@ -15,11 +15,12 @@ function SignIn() {
       .then(res => {
         let data = res.data
         if (data.success) {
-          console.log("login successful - " + data.user.name)
+          console.log("login successful - " + data.user.username)
           let user = {
             id: data.user.id,
-            name: data.user.name,
-            role: data.user.role,
+            name: data.user.username,
+            role: data.user.roles,
+            org: data.user.org, 
             token: data.token
           }
           setUser(user)
