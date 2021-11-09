@@ -16,13 +16,17 @@ router.post('/', (req, resp) => {
         if (err) {
             console.log(err)
             resp.status(500).json({ success: false, reason: "SYSTEM_ERROR" })
+            return
         }
         if (results.rowCount === 0) {
+            console.log(`user "${username}" NOT found`)
             resp.status(401).json({success: false, reason:'NO_USER'})
+            return
         }
         bcrypt.compare(password, results.rows[0]['password'], (err, isvaliduser) => {
             if (err) {
                 resp.status(500).json({ success: false, reason: "CRYPTO_ERROR" });
+                return
             }
             if (isvaliduser) {
                 const validateduser = {
