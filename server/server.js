@@ -11,10 +11,12 @@ server.get('/', (req, res) => {
 const login = require('./routers/login.js')
 const auth = require('./middlewares/auth.js')
 const watermeters = require('./routers/watermeters.js')
+const readings = require('./routers/readings')
 
 server.use('/login', login)
 server.use('/api', auth)
 server.use('/api/watermeters', watermeters)
+server.use('/api/readings', readings)
 
 // start server
 const port = process.env.PORT || 5000;

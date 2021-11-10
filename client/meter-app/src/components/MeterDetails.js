@@ -59,6 +59,25 @@ function MeterDetails() {
     })}
     </ul>
     </div>
+
+    <div className='m-2'>
+    <ul>
+    {readings.map((reading, i) => {
+      let bgcolor = 'bg-gray-100'
+      if (i % 2 == 0) {
+        bgcolor = 'bg-gray-200'
+      }
+      return (
+      <li key={i}>
+        <div className={'grid grid-cols-3 md:grid-cols-6 p-2 ' + bgcolor}>
+          <div className="col-span-1 md:col-span-2">{reading.reading}</div>
+          <div className="col-span-2 md:col-span-4 px-2">{reading.update_on}</div>
+        </div>
+      </li>
+      )
+    })}
+    </ul>
+    </div>
     </div>
   )
 }
