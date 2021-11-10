@@ -15,4 +15,30 @@ router.get('/:meterid', (req, res) => {
   })
 })
 
+// @post api/readings add a new reading record
+router.post('/', (req, res) => {
+    const sqltext = 
+        `INSERT into readings(
+                meter_id, 
+                reading, 
+                update_on,
+                update_by
+            ) 
+            VALUES($1, $2, NOW(), $3) 
+            RETURNING *`
+    const rowdata = [
+        req.body.meterid,
+        req.body.reading,
+        req.user.id
+    ]
+    db.query(sqltext, rowdata, (err, results) => {
+        if (!err) {
+            res.json(results.rows[0])
+        } else {
+            console.log(err)
+            res.status(500).send('Internal error')
+        }
+    })
+})
+
 module.exports = router
