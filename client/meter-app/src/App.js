@@ -10,6 +10,7 @@ import {
 import Navbar from "./components/Navbar"
 import Menubar from "./components/Menubar"
 import SignIn from "./components/SignIn";
+import MeterDetails from './components/MeterDetails'
 
 function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
@@ -19,8 +20,9 @@ function App() {
       <Router>
       <Navbar />
       <Routes>
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/" element=
+        <Route path='/signin' element={ <SignIn /> } />
+        <Route path='/meterdetails/:meterid' element={ <MeterDetails /> } />
+        <Route path='/' element=
           {user ? 
             <Menubar /> : <Navigate to='/signin' />
           } />

@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
+import { useNavigate } from 'react-router'
 import { Listbox } from '@headlessui/react'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
@@ -10,7 +11,8 @@ function Meters() {
   }
   const [sortBy, setSortBy] = useState('...')
   const [meters, setMeters] = useState([])
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const fetchMeters = () => {
     const authConfig = {
@@ -19,15 +21,14 @@ function Meters() {
         'Authorization': `Bearer ${user.token}`
       }
     }
-    axios.get('api/watermeters', authConfig)
+    axios.get('/api/watermeters', authConfig)
     .then(res => {
-      console.log("response: " + res.data)
       setMeters(res.data)
     })
     .catch(e => console.log(e))
   }
 
-  // TODO useEffect initialize
+  // useEffect initialize
   useEffect(fetchMeters, [])
 
   // TODO useEffect sort by
@@ -47,7 +48,7 @@ function Meters() {
               <Listbox.Option
                 key={i}
                 value={k}
-                className="p-2 hover:bg-yellow-50 rounded-md"
+                className="p-2 hover:bg-yellow-50 rounded-md cursor-pointer"
               > {sortCriteria[k]}
               </Listbox.Option>
               )
@@ -68,7 +69,8 @@ function Meters() {
         {meters.map((meter) => {
           return (
           <li key={meter.id}>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-100 hover:bg-blue-50 my-1 shadow-md">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-100 hover:bg-blue-50 cursor-pointer my-1 shadow-md"
+              onClick={() => {navigate('/meterdetails/' + meter.id)}}>
               <div className="text-left p-2">{meter.name}</div>
               <div className="text-left p-2">{meter.number}</div>
               <div className="text-left p-2 hidden md:block md:col-span-3">{'N.A.'}</div>
