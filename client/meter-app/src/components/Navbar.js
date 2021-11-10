@@ -15,8 +15,9 @@ function Navbar() {
     <header className="flex flex-row justify-center bg-gradient-to-b from-blue-300 to-blue-500 rounded-sm shadow-lg">
       <Menu as="div" className="relative">
         <Menu.Button>
-          <img className="w-12 h-12 my-2 mx-4 rounded-full shadow-md border-2" 
-            src={"./avatars/" + (user ? "my_avatar_1.png" : "no_user_avatar.png") } 
+          <img className="w-12 h-12 my-2 mx-4 rounded-full shadow-md ring-2 ring-gray-300 ring-offset-2" 
+            src={"/avatars/" + (user ? user.name.trim() + ".png" : "not_signed_in.png") } 
+            onError={(e)=>{e.target.onerror=null; e.target.src="/avatars/default.png"}}
             alt="avatar" href="#" />
         </Menu.Button>
         {user ? 
@@ -44,7 +45,8 @@ function Navbar() {
         <></> }
       </Menu>
       <div className="flex flex-grow content-center">
-          <input className="text-sm rounded-md ml-auto mr-10 my-auto py-2 pl-10 pr-3 w-3/4" type="search" id="search" placeholder="Search"></input>
+          <input className="text-sm rounded-md ml-auto mr-10 my-auto py-2 pl-10 pr-3 w-3/4" 
+            type="search" id="search" placeholder="Search"></input>
       </div>
     </header>
   )
