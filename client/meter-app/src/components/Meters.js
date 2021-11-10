@@ -74,7 +74,7 @@ function Meters() {
               <div className="text-left p-2">{meter.name}</div>
               <div className="text-left p-2">{meter.number}</div>
               <div className="text-left p-2 hidden md:block md:col-span-3">{'N.A.'}</div>
-              <div className="text-left p-2">{meter.updated_on}</div>
+              <div className="text-left p-2">{meter.update_on}</div>
             </div>
           </li>
           )
