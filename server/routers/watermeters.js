@@ -36,16 +36,18 @@ router.post('/', (req, res) => {
                 made_by, 
                 model, 
                 made_on, 
-                update_on
+                update_on,
+                update_by
             ) 
-            VALUES($1, $2, $3, $4, $5, NOW()) 
+            VALUES($1, $2, $3, $4, $5, NOW(), $6) 
             RETURNING *`
     const rowdata = [
         req.body.number,
         req.body.name,
         req.body.made_by,
         req.body.model,
-        req.body.made_on
+        req.body.made_on,
+        req.user.id
     ]
     db.query(sqltext, rowdata, (err, results) => {
         if (!err) {
