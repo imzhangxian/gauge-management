@@ -21,10 +21,9 @@ router.post('/', (req, res) => {
         `INSERT into readings(
                 meter_id, 
                 reading, 
-                update_on,
                 update_by
             ) 
-            VALUES($1, $2, NOW(), $3) 
+            VALUES($1, $2, $3) 
             RETURNING *`
     const rowdata = [
         req.body.meterid,
