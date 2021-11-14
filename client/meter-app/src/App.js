@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar"
 import Menubar from "./components/Menubar"
 import SignIn from "./components/SignIn";
 import MeterDetails from './components/MeterDetails'
+import TaskDetails from './components/TaskDetails'
 
 function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path='/signin' element={ <SignIn /> } />
         <Route path='/meterdetails/:meterid' element={ <MeterDetails /> } />
+        <Route path='/taskdetails/:taskid' element={ <TaskDetails /> } />
         <Route path='/' element=
           {user ? 
             <Menubar /> : <Navigate to='/signin' />

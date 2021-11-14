@@ -4,12 +4,25 @@ const router = express.Router();
 const db = require('../db');
 const taskmapping = require('../wf/task-mapping')
 
-// @get api/tasks/mine - retrieve meter via work order ID
+// @get api/tasks/mine - retrieve my tasks
 router.get('/mine', (req, res) => {
   db.query('SELECT * from tasks where assignee=$1', 
     [req.user.id], (err, results) => {
       if (!err) {
           res.json(results.rows);
+      } else {
+          console.log(err);
+          res.status(500).send('Internal error');
+      }
+  });
+})
+
+// @get api/tasks/withorder - retrieve task via ID with ordertype
+router.get('/withorder/:id', (req, res) => {
+  db.query('SELECT w.type as ordertype, t.* from work_orders w, tasks t where t.id=$1 and t.order_id=w.id', 
+    [req.params.id], (err, results) => {
+      if (!err) {
+          res.json(results.rows[0]);
       } else {
           console.log(err);
           res.status(500).send('Internal error');
