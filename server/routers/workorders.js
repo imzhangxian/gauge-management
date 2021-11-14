@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 // @post api/workorders create a new work order
-router.post('/', async (req, res) => {
+router.post('/', async (req, resp) => {
     const wosql = 
         `INSERT into work_orders 
             ( type, name, description, created_by, state ) 
@@ -31,29 +31,34 @@ router.post('/', async (req, res) => {
         req.body.initialstate
     ];
     const tasksql = 
-        `INSERT into tasks 
-            ( order_id, name, description, assignee )
-            VALUES ($1, $2, $3, $4)
-            RETURNING *`;
-    const taskdata = [
-        0, // placeholder, update on new work order id
-        req.body.taskname ? req.body.taskname : "default task",
-        req.body.taskdesc ? req.body.taskdesc : "",
-        req.user.id
-    ];
+    `INSERT into tasks 
+        ( order_id, name, description, step, assignee )
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *`;
     const client = await db.connect();
     try {
         await client.query('BEGIN');
-        let results = await client.query(wosql, wodata);
-        let wo = results.rows[0];
-        taskdata[0] = wo.id;
-        results = await client.query(tasksql, taskdata);
-        let task = results.rows[0];
+        let res = await client.query(wosql, wodata);
+        let wo = res.rows[0];
+        // if there's a default task associated with the type, then create it
+        let task = null;
+        let defaultTask = null;
+        // try catch: we don't want to roll back work order just because no default task defined.
+        try {
+            defaultTask = require(`../wf/${req.body.type}/default-task.js`);
+        } catch (e) { defaultTask = null; console.log(e); }
+        if ( defaultTask ) {
+            task = defaultTask(wo);
+            const taskdata = [
+                wo.id, task.name, task.description, task.step, task.assignee];
+            res = await client.query(tasksql, taskdata);
+            task = res.rows[0];
+        }
         await client.query('COMMIT');
-        res.json([wo, task]);
+        resp.json([wo, task]);
     } catch (e) {
         client.query('ROLLBACK');
-        res.status(500).send('Internal error');
+        resp.status(500).send('Internal error');
     } finally {
         client.release();
     }
