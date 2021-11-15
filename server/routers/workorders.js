@@ -5,7 +5,7 @@ const db = require('../db');
 
 // @get api/workorders/ retrieve meter via ID
 router.get('/mine', (req, res) => {
-  db.query('SELECT * from work_orders where created_by=$1', 
+  db.query('SELECT * from work_orders where created_by=$1 order by updated_on desc', 
     [req.user.id], (err, results) => {
       if (!err) {
           res.json(results.rows);
