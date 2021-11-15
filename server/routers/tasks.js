@@ -6,8 +6,8 @@ const taskmapping = require('../wf/task-mapping')
 
 // @get api/tasks/mine - retrieve my tasks
 router.get('/mine', (req, res) => {
-  db.query('SELECT * from tasks where assignee=$1', 
-    [req.user.id], (err, results) => {
+  db.query('SELECT * from tasks where assignee=$1 and completed=$2 order by updated_on desc', 
+    [req.user.id, false], (err, results) => {
       if (!err) {
           res.json(results.rows);
       } else {
@@ -19,7 +19,7 @@ router.get('/mine', (req, res) => {
 
 // @get api/tasks/withorder - retrieve task via ID with ordertype
 router.get('/withorder/:id', (req, res) => {
-  db.query('SELECT w.type as ordertype, t.* from work_orders w, tasks t where t.id=$1 and t.order_id=w.id', 
+  db.query('SELECT w.type as ordertype, t.* from work_orders w, tasks t where t.id=$1 and t.order_id=w.id order by updated_on desc', 
     [req.params.id], (err, results) => {
       if (!err) {
           res.json(results.rows[0]);
