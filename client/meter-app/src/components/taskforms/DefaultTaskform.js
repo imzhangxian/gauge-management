@@ -19,7 +19,7 @@ function DefaultTaskform(props) {
         authConfig)
       .then(
         resp => {
-          navigate('/')
+          navigate('/home/tasks')
         }
       ).catch(e => {
         if (e.response) {

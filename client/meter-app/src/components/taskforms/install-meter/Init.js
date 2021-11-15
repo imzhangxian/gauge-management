@@ -28,7 +28,7 @@ function Init(props) {
         authConfig)
       .then(
         resp => {
-          navigate('/')
+          navigate('/home/tasks')
         }
       ).catch(e => {
         if (e.response) {
@@ -42,7 +42,7 @@ function Init(props) {
     <div>
       <button className="mx-4 px-4 py-2 bg-blue-500 hover:bg-blue-200 rounded-md"
         onClick={() => {submitForm('approved', variables)}}>
-          Approve
+          Submit
       </button>
       <button className="mx-4 px-4 py-2 bg-red-500 hover:bg-red-200 rounded-md"
         onClick={() => {submitForm('rejected', variables)}}>
