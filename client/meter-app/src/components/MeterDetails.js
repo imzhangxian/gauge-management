@@ -63,7 +63,7 @@ function MeterDetails() {
     <div className='flex flex-col rounded-md bg-gray-50 mt-4 p-2 max-w-xl m-auto'>
     <div className='mb-6 ml-2'>
       <a className='p-2 rounded-md bg-blue-400 hover:bg-blue-300' 
-        href="#" onClick={() => {navigate('/')}}>&lt;&lt;Back</a>
+        href="#" onClick={() => {navigate('/home/meters')}}>&lt;&lt;Back</a>
     </div>
     <h3 className='p-4'>Meter {meter.number}</h3>
     <div className='m-2'>

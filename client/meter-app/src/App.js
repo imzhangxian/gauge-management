@@ -22,12 +22,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/signin' element={ <SignIn /> } />
-        <Route path='/meterdetails/:meterid' element={ <MeterDetails /> } />
-        <Route path='/taskdetails/:taskid' element={ <TaskDetails /> } />
-        <Route path='/' element=
-          {user ? 
-            <Menubar /> : <Navigate to='/signin' />
-          } />
+        <Route path='/meterdetails/:meterid' element={user ? <MeterDetails /> : <Navigate to='/signin' /> } />
+        <Route path='/taskdetails/:taskid' element={user ? <TaskDetails /> : <Navigate to='/signin' /> } />
+        <Route path='/home/:selected' element={user ? <Menubar /> : <Navigate to='/signin' /> } />
+        <Route path='/' element={<Navigate to='/home/meter' /> } />
       </Routes>
       </Router>
     </AuthContext.Provider>
