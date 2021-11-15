@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../db');
 
 // @get api/workorders/ retrieve meter via ID
-router.get('/', (req, res) => {
+router.get('/mine', (req, res) => {
   db.query('SELECT * from work_orders where created_by=$1', 
     [req.user.id], (err, results) => {
       if (!err) {
