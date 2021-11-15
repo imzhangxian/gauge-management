@@ -58,6 +58,11 @@ function Tasks() {
       <div className='p-2 mx-auto'>
         <h3>Work Orders</h3>
       </div>
+      <div className='p-2'>
+      <button className="col-start-1 col-span-1 px-6 py-2 bg-blue-500 hover:bg-blue-200 rounded-md hidden md:block">
+          Create Order
+      </button>
+      </div>
       <ul>
         {workorders.map((wo, i) => {
           return (

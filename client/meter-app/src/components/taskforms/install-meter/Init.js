@@ -37,11 +37,11 @@ function Init(props) {
 
   return (
     <div>
-      <button className="mx-4 p-2 bg-blue-500 hover:bg-blue-200 rounded-md"
+      <button className="mx-4 px-4 py-2 bg-blue-500 hover:bg-blue-200 rounded-md"
         onClick={() => {submitForm('approved', variables)}}>
           Approve
       </button>
-      <button className="mx-4 p-2 bg-red-500 hover:bg-red-200 rounded-md"
+      <button className="mx-4 px-4 py-2 bg-red-500 hover:bg-red-200 rounded-md"
         onClick={() => {submitForm('approved', variables)}}>
           Reject
       </button>

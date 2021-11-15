@@ -36,9 +36,6 @@ function Meters() {
   return (
     <div>
       <div className="grid grid-cols-3 md:grid-cols-6 my-3">
-        <button className="col-start-1 col-span-1 p-2 bg-blue-500 hover:bg-blue-200 rounded-md hidden md:block">
-          Add Meter
-        </button>
         <div className="relative col-start-3 col-span-1 md:col-start-5 md:col-span-2">
         <Listbox value={0} onChange={setSortBy}>
           <Listbox.Button className="relative w-full p-2 bg-yellow-400 hover:bg-yellow-200 rounded-md">{"Sort by " + sortBy}</Listbox.Button>
@@ -66,10 +63,11 @@ function Meters() {
             <div className="text-left p-2 hover:bg-gray-200 rounded-tr-md">Updated</div>
           </div>
         </li>
-        {meters.map((meter) => {
+        {meters.map((meter, i) => {
           return (
           <li key={meter.id}>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-100 hover:bg-blue-50 cursor-pointer my-1 shadow-md"
+            <div className={'grid grid-cols-3 md:grid-cols-6 gap-2 hover:bg-blue-100 cursor-pointer my-1 shadow-md'
+                + (i % 2 ? ' bg-gray-100' : ' bg-gray-200')}
               onClick={() => {navigate('/meterdetails/' + meter.id)}}>
               <div className="text-left p-2">{meter.name}</div>
               <div className="text-left p-2">{meter.number}</div>
