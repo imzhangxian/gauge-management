@@ -1,9 +1,9 @@
 import { useContext } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { AuthContext } from '../../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 
-function Init(props) {
+function DefaultTaskform(props) {
   const navigate = useNavigate()
   const { user } = useContext(AuthContext)
   const authConfig = {
@@ -13,15 +13,9 @@ function Init(props) {
     }
   }
 
-  let variables = {
-    submitter: user.id, 
-    checker: user.id,
-    approver: user.id
-  }
-
-  function submitForm(approval, variables) {
+  function submitForm(approval) {
     axios.post('/api/tasks/execute/' + props.task.id, 
-        {approval: approval, variables: variables}, 
+        {approval: approval}, 
         authConfig)
       .then(
         resp => {
@@ -38,11 +32,11 @@ function Init(props) {
   return (
     <div>
       <button className="mx-4 p-2 bg-blue-500 hover:bg-blue-200 rounded-md"
-        onClick={() => {submitForm('approved', variables)}}>
+        onClick={() => {submitForm('approved')}}>
           Approve
       </button>
       <button className="mx-4 p-2 bg-red-500 hover:bg-red-200 rounded-md"
-        onClick={() => {submitForm('approved', variables)}}>
+        onClick={() => {submitForm('approved')}}>
           Reject
       </button>
     </div>
@@ -50,4 +44,4 @@ function Init(props) {
   )
 }
 
-export default Init
+export default DefaultTaskform
