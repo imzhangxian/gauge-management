@@ -13,11 +13,14 @@ function Init(props) {
     }
   }
 
+  // TODO temporary solution; need user selector on taskform
   let variables = {
     submitter: user.id, 
     checker: user.id,
     approver: user.id
   }
+
+  // TODO input new meter information ( or derive from work order )
 
   function submitForm(approval, variables) {
     axios.post('/api/tasks/execute/' + props.task.id, 
@@ -42,7 +45,7 @@ function Init(props) {
           Approve
       </button>
       <button className="mx-4 px-4 py-2 bg-red-500 hover:bg-red-200 rounded-md"
-        onClick={() => {submitForm('approved', variables)}}>
+        onClick={() => {submitForm('rejected', variables)}}>
           Reject
       </button>
     </div>

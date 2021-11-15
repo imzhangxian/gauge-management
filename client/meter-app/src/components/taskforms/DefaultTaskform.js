@@ -36,7 +36,7 @@ function DefaultTaskform(props) {
           Approve
       </button>
       <button className="mx-4 px-4 py-2 bg-red-500 hover:bg-red-200 rounded-md"
-        onClick={() => {submitForm('approved')}}>
+        onClick={() => {submitForm('rejected')}}>
           Reject
       </button>
     </div>
