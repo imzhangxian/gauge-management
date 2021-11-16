@@ -5,10 +5,10 @@ import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 
 function Meters() {
-  const sortCriteria = {
-    "number": "Sort By Number",
-    "distance": "Sort By Distance"
-  }
+  // const sortCriteria = {
+  //   "number": "Sort By Number",
+  //   "distance": "Sort By Distance"
+  // }
   // const [sortBy, setSortBy] = useState('...')
   const [meters, setMeters] = useState([])
   const [keyphrase, setKeyphrase] = useState('')
@@ -93,7 +93,7 @@ function Meters() {
         </div>
       */}
       </div>
-      {loading ? <span>Loading ...</span> : 
+      {loading ? <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div> : 
       <ul>
         <li>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-300 rounded-t-md">

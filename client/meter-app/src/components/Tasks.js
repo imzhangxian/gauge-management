@@ -66,7 +66,8 @@ function Tasks() {
       <div className='p-2 mx-auto'>
         <h3>Tasks</h3>
       </div>
-      {loading ? <span>Loading</span> :
+      {loading ?   
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div> :
       <ul>
         {tasks.map((task, i) => {
           return (
@@ -98,7 +99,8 @@ function Tasks() {
           Create Order
       </button>
       </div>
-      {loading ? <span>Loading</span> :
+      {loading ? 
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div> :
       <ul>
         {workorders.map((wo, i) => {
           return (
@@ -140,7 +142,7 @@ function Tasks() {
                     <option className='m-2' key={i} value={type}>{type}</option>
                   )
                 })}
-                <option className='m-2' key={-1} value={''} disabled></option>
+                <option className='m-2' key={-2} value={''} disabled></option>
             </select>
             <input className='border-2 m-2 p-1' 
               type='text' 
