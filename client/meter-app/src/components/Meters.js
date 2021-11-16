@@ -9,9 +9,10 @@ function Meters() {
     "number": "Sort By Number",
     "distance": "Sort By Distance"
   }
-  const [sortBy, setSortBy] = useState('...')
+  // const [sortBy, setSortBy] = useState('...')
   const [meters, setMeters] = useState([])
-  const [keyphrase, setKeyphrase] = useState({})
+  const [keyphrase, setKeyphrase] = useState('')
+  const [loading, setLoading] = useState(false)
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -23,11 +24,13 @@ function Meters() {
         'Authorization': `Bearer ${user.token}`
       }
     }
+    setLoading(true)
     axios.get('/api/watermeters', authConfig)
     .then(res => {
       setMeters(res.data)
     })
     .catch(e => console.log(e))
+    .finally(() => {setLoading(false)})
   }
 
   // useEffect initialize
@@ -43,11 +46,13 @@ function Meters() {
           'Authorization': `Bearer ${user.token}`
         }
       }
+      setLoading(true)
       axios.post('/api/search/watermeters/', {keyphrase: keyphrase}, authConfig)
       .then(res => {
         setMeters(res.data)
       })
-      .catch(e => console.log(e))  
+      .catch(e => console.log(e))
+      .finally(() => {setLoading(false)})
     }
   }
 
@@ -88,6 +93,7 @@ function Meters() {
         </div>
       */}
       </div>
+      {loading ? <span>Loading ...</span> : 
       <ul>
         <li>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-300 rounded-t-md">
@@ -112,6 +118,7 @@ function Meters() {
           )
         })}
       </ul>
+      }
     </div>
   )
 }

@@ -9,6 +9,7 @@ function Tasks() {
   const [tasks, setTasks] = useState([])
   const [workorders, setWorkorders] = useState([])
   const [showCreateDialog, setShowCreateDialog] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -25,10 +26,12 @@ function Tasks() {
         }
       }
       try {
+        setLoading(true)
         let resp = await axios.get('/api/tasks/mine', authConfig)
         setTasks(resp.data)
         resp = await axios.get('/api/workorders/mine', authConfig)
         setWorkorders(resp.data)
+        setLoading(false)
       } catch (e) { console.log(e) }
     })()
   }, [])
@@ -57,11 +60,13 @@ function Tasks() {
   }
 
   return (
+    <>
     <div className='flex flex-col mx-auto'>
     <div className='block'>
       <div className='p-2 mx-auto'>
         <h3>Tasks</h3>
       </div>
+      {loading ? <span>Loading</span> :
       <ul>
         {tasks.map((task, i) => {
           return (
@@ -78,6 +83,7 @@ function Tasks() {
           </li>)
         })}
       </ul>
+      }
     </div>
     {/** TODO? to create a new component for work orders */}
     <div className='block mx-auto my-4'>
@@ -92,6 +98,7 @@ function Tasks() {
           Create Order
       </button>
       </div>
+      {loading ? <span>Loading</span> :
       <ul>
         {workorders.map((wo, i) => {
           return (
@@ -109,6 +116,7 @@ function Tasks() {
           </li>)
         })}
       </ul>
+      }
     </div>
 
     <Transition appear show={showCreateDialog} as={Fragment}>
@@ -163,6 +171,7 @@ function Tasks() {
     </Transition>
 
     </div>
+    </>
   )
 }
 
