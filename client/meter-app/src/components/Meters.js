@@ -93,7 +93,7 @@ function Meters() {
         </div>
       */}
       </div>
-      {loading ? <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div> : 
+      {loading ? <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400"></div> : 
       <ul>
         <li>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-300 rounded-t-md">
