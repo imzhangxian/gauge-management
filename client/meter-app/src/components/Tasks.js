@@ -126,11 +126,13 @@ function Tasks() {
             <select className='border-2 m-2 p-1' 
               defaultValue={inputs.type}
               onChange={e => { inputs.type = e.target.value }} >
+                <option className='m-2' key={-1} value={''} disabled> --- select work order type ---</option>
                 {wotypes.map((type, i) => {
                   return (
                     <option className='m-2' key={i} value={type}>{type}</option>
                   )
                 })}
+                <option className='m-2' key={-1} value={''} disabled></option>
             </select>
             <input className='border-2 m-2 p-1' 
               type='text' 
