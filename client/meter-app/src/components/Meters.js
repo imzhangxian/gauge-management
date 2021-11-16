@@ -11,10 +11,10 @@ function Meters() {
   }
   const [sortBy, setSortBy] = useState('...')
   const [meters, setMeters] = useState([])
+  const [keyphrase, setKeyphrase] = useState({})
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  let inputs = {}
 
   const fetchMeters = () => {
     const authConfig = {
@@ -35,15 +35,15 @@ function Meters() {
 
   // TODO useEffect sort by
 
-  function searchMeters(inputs) {
-    if (inputs.keyphrase) {
+  function searchMeters(keyphrase) {
+    if (keyphrase) {
       const authConfig = {
         headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${user.token}`
         }
       }
-      axios.post('/api/search/watermeters/', {keyphrase: inputs.keyphrase}, authConfig)
+      axios.post('/api/search/watermeters/', {keyphrase: keyphrase}, authConfig)
       .then(res => {
         setMeters(res.data)
       })
@@ -57,16 +57,18 @@ function Meters() {
       <div className="flex flex-grow content-center">
         <input className="text-sm rounded-md ml-auto mr-2 my-auto py-2 pl-10 pr-3 w-3/4" 
           type="search" id="search" placeholder="Input search criteria, e.g. number, name ..." 
-          onChange={e => { inputs.keyphrase = e.target.value }}/>
+          value={keyphrase}
+          onChange={e => { setKeyphrase(e.target.value) }} 
+          onKeyDown={e => {if (e.key === 'Enter') {searchMeters(keyphrase)} }}/>
         <button
           type="button"
-          className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 rounded-md hover:bg-blue-200 "
-          onClick={() => searchMeters(inputs)} >
-          Search
+          className="mx-2 px-4 py-2 text-sm font-medium text-blue-900 bg-blue-300 rounded-md hover:bg-blue-100 "
+          onClick={() => {setKeyphrase(''); fetchMeters()}} >
+          Reset
         </button>
       </div>
-      {/** sort by list box */}
       <div className="grid grid-cols-3 md:grid-cols-6 my-3">
+      {/** sort by list box 
         <div className="relative col-start-3 col-span-1 md:col-start-5 md:col-span-2">
         <Listbox value={0} onChange={setSortBy}>
           <Listbox.Button className="relative w-full p-2 bg-yellow-400 hover:bg-yellow-200 rounded-md">{"Sort by " + sortBy}</Listbox.Button>
@@ -84,6 +86,7 @@ function Meters() {
           </Listbox.Options>
         </Listbox>
         </div>
+      */}
       </div>
       <ul>
         <li>
