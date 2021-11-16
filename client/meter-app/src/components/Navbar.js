@@ -44,9 +44,12 @@ function Navbar() {
           : 
         <></> }
       </Menu>
+
       <div className="flex flex-grow content-center">
+      { /*
           <input className="text-sm rounded-md ml-auto mr-10 my-auto py-2 pl-10 pr-3 w-3/4" 
             type="search" id="search" placeholder="Search"></input>
+       */}
       </div>
     </header>
   )

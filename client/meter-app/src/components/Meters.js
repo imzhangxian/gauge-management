@@ -14,6 +14,8 @@ function Meters() {
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
 
+  let inputs = {}
+
   const fetchMeters = () => {
     const authConfig = {
       headers: {
@@ -33,8 +35,37 @@ function Meters() {
 
   // TODO useEffect sort by
 
+  function searchMeters(inputs) {
+    if (inputs.keyphrase) {
+      const authConfig = {
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${user.token}`
+        }
+      }
+      axios.post('/api/search/watermeters/', {keyphrase: inputs.keyphrase}, authConfig)
+      .then(res => {
+        setMeters(res.data)
+      })
+      .catch(e => console.log(e))  
+    }
+  }
+
   return (
     <div>
+      {/** search box */}
+      <div className="flex flex-grow content-center">
+        <input className="text-sm rounded-md ml-auto mr-2 my-auto py-2 pl-10 pr-3 w-3/4" 
+          type="search" id="search" placeholder="Input search criteria, e.g. number, name ..." 
+          onChange={e => { inputs.keyphrase = e.target.value }}/>
+        <button
+          type="button"
+          className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 rounded-md hover:bg-blue-200 "
+          onClick={() => searchMeters(inputs)} >
+          Search
+        </button>
+      </div>
+      {/** sort by list box */}
       <div className="grid grid-cols-3 md:grid-cols-6 my-3">
         <div className="relative col-start-3 col-span-1 md:col-start-5 md:col-span-2">
         <Listbox value={0} onChange={setSortBy}>

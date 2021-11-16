@@ -14,6 +14,7 @@ const watermeters = require('./routers/watermeters.js')
 const readings = require('./routers/readings')
 const workorders = require('./routers/workorders')
 const tasks = require('./routers/tasks')
+const searchrouter = require('./routers/search')
 
 server.use('/login', login)
 server.use('/api', auth)
@@ -21,6 +22,7 @@ server.use('/api/watermeters', watermeters)
 server.use('/api/readings', readings)
 server.use('/api/workorders', workorders)
 server.use('/api/tasks', tasks)
+server.use('/api/search', searchrouter)
 
 // start server
 const port = process.env.PORT || 5000;
