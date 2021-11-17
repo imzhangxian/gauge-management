@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState, useEffect, useContext, Fragment } from 'react'
 import { useNavigate } from 'react-router'
 import { Dialog, Transition} from '@headlessui/react'
+import { t } from 'i18next'
 import { AuthContext } from '../context/AuthContext'
 import taskform_mapping from './taskforms/TaskformMapping'
 
@@ -64,7 +65,7 @@ function Tasks() {
     <div className='flex flex-col mx-auto'>
     <div className='block'>
       <div className='p-2 mx-auto'>
-        <h3>Tasks</h3>
+        <h3>{t('title.task')}</h3>
       </div>
       {loading ?   
       <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400"></div> :
@@ -91,12 +92,12 @@ function Tasks() {
     </div>
     <div className='block'>
       <div className='p-2 mx-auto'>
-        <h3>Work Orders</h3>
+        <h3>{t('title.workorder')}</h3>
       </div>
       <div className='p-2'>
       <button className="px-6 py-2 bg-blue-500 hover:bg-blue-200 rounded-md"
         onClick={() => {setShowCreateDialog(true)}} >
-          Create Order
+          {t('button.create_order')}
       </button>
       </div>
       {loading ? 
@@ -130,13 +131,13 @@ function Tasks() {
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           <div className="relative bg-white rounded max-w-sm mx-auto p-4">
             <Dialog.Title as="h3" className="mb-2 text-lg leading-6 font-medium text-gray-900">
-              Create Work Order
+              {t('dialog.title.create_workorder')}
             </Dialog.Title>
             <div className='p-2 flex flex-col justify-start'>
             <select className='border-2 m-2 p-1' 
               defaultValue={inputs.type}
               onChange={e => { inputs.type = e.target.value }} >
-                <option className='m-2' key={-1} value={''} disabled> --- select work order type ---</option>
+                <option className='m-2' key={-1} value={''} disabled></option>
                 {wotypes.map((type, i) => {
                   return (
                     <option className='m-2' key={i} value={type}>{type}</option>
@@ -158,13 +159,13 @@ function Tasks() {
                 type="button"
                 className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 rounded-md hover:bg-blue-200 "
                 onClick={() => createWorkOrder(inputs)} >
-                Create
+                {t('button.create')}
               </button>
               <button
                 type="button"
                 className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200"
                 onClick={() => {setShowCreateDialog(false)}} >
-                Close
+                {t('button.close')}
               </button>
             </div>
           </div>

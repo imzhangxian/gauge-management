@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useContext, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import { t } from 'i18next';
 import { AuthContext } from '../context/AuthContext'
-
 
 function SignIn() {
   const { user, setUser } = useContext(AuthContext)
@@ -55,10 +55,11 @@ function SignIn() {
           onChange={e => { inputs.password = e.target.value }}>
         </input>
       </div>
+      {failed ? <span className='text-red-500 text-lg font-bold'>{t('sign.failed.msg')}</span> : <></>}
       <div className="flex items-center justify-between">
         <button className="bg-blue-600 hover:bg-blue-400 text-gray-100 py-2 px-4 rounded" type="button"
           onClick={handleSubmit}>
-          Sign In
+          {t('button.signin')}
         </button>
       </div>
     </div>

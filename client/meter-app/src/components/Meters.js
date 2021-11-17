@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router'
-import { Listbox } from '@headlessui/react'
+// import { Listbox } from '@headlessui/react'
 import axios from 'axios'
+import { t } from 'i18next'
 import { AuthContext } from '../context/AuthContext'
 
 function Meters() {
@@ -61,7 +62,7 @@ function Meters() {
       {/** search box */}
       <div className="flex flex-grow content-center">
         <input className="text-sm rounded-md ml-auto mr-2 my-auto py-2 pl-10 pr-3 w-3/4" 
-          type="search" id="search" placeholder="Input search criteria, e.g. number, name ..." 
+          type="search" id="search" placeholder={t('meter.search.placeholder')} 
           value={keyphrase}
           onChange={e => { setKeyphrase(e.target.value) }} 
           onKeyDown={e => {if (e.key === 'Enter') {searchMeters(keyphrase)} }}/>
@@ -69,7 +70,7 @@ function Meters() {
           type="button"
           className="mx-2 px-4 py-2 text-sm font-medium text-blue-900 bg-blue-300 rounded-md hover:bg-blue-100 "
           onClick={() => {setKeyphrase(''); fetchMeters()}} >
-          Reset
+          {t('meter.search.button.clear')}
         </button>
       </div>
       <div className="grid grid-cols-3 md:grid-cols-6 my-3">
@@ -97,10 +98,10 @@ function Meters() {
       <ul>
         <li>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-300 rounded-t-md">
-            <div className="text-left p-2 hover:bg-gray-200 rounded-tl-md">Number</div>
-            <div className="text-left p-2 hover:bg-gray-200">Name</div>
-            <div className="text-left p-2 hover:bg-gray-200 hidden md:block md:col-span-3">Adderss</div>
-            <div className="text-left p-2 hover:bg-gray-200 rounded-tr-md">Updated</div>
+            <div className="text-left p-2 hover:bg-gray-200 rounded-tl-md">{t('th.number')}</div>
+            <div className="text-left p-2 hover:bg-gray-200">{t('th.name')}</div>
+            <div className="text-left p-2 hover:bg-gray-200 hidden md:block md:col-span-3">{t('th.address')}</div>
+            <div className="text-left p-2 hover:bg-gray-200 rounded-tr-md">{t('th.updated_on')}</div>
           </div>
         </li>
         {meters.map((meter, i) => {

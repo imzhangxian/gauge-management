@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { t } from 'i18next'
 import axios from 'axios'
 import { AuthContext } from '../../../context/AuthContext'
 
@@ -26,10 +27,10 @@ function Init(props) {
 
   function submitForm(approval) {
     if (! checker) {
-      setError('Must select a checker!')
+      setError(t('task.err.missing_checker'))
       return
     } else if (! approver) {
-      setError('Must select an approver!')
+      setError(t('task.err.missing_approver'))
       return
     }
     axios.post('/api/tasks/execute/' + props.task.id, 
@@ -104,7 +105,7 @@ function Init(props) {
             setCheckerSearchKey(e.target.value)
             searchUser(e.target.value, 'checker')
           }}
-          placeholder='Select Checker' />
+          placeholder={t('task.checker.placeholder')} />
         {checker ? <>
           <span className='m-1 p-1'>{checker.display}</span>
           <button className='m-1 px-3 bg-red-600 rounded-sm text-gray-50' 
@@ -143,7 +144,7 @@ function Init(props) {
             setApproverSearchKey(e.target.value)
             searchUser(e.target.value, 'approver')
           }}
-          placeholder='Select Approver' />
+          placeholder={t('task.approver.placeholder')} />
         {approver ? <>
           <span className='m-1 p-1'>{approver.display}</span>
           <button className='m-1 px-3 bg-red-600 rounded-sm text-gray-50' 
@@ -177,11 +178,11 @@ function Init(props) {
     <div className='p-4'>
       <button className="mx-4 px-4 py-2 bg-blue-500 hover:bg-blue-200 rounded-md"
         onClick={() => {submitForm('approved')}}>
-          Submit
+          {t('taskform.button.submit')}
       </button>
       <button className="mx-4 px-4 py-2 bg-red-500 hover:bg-red-200 rounded-md"
         onClick={() => {submitForm('rejected')}}>
-          Reject
+          {t('taskform.button.reject')}
       </button>
     </div>
     </>

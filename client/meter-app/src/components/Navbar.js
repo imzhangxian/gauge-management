@@ -1,7 +1,8 @@
 import { Menu } from '@headlessui/react'
-import { useContext } from 'react';
-import { useNavigate } from 'react-router';
-import { AuthContext } from '../context/AuthContext';
+import { useContext } from 'react'
+import { useNavigate } from 'react-router'
+import { t } from 'i18next'
+import { AuthContext } from '../context/AuthContext'
 
 function Navbar() {
   const { user, setUser } = useContext(AuthContext)
@@ -35,7 +36,7 @@ function Navbar() {
             {({ active }) => (
               <button className={`${active && 'bg-blue-500 rounded-lg text-gray-50'} px-4 py-1 text-left`} 
                 onClick={signout} >
-                Sign out {user.name}
+                {t('menu.signout')} {user.name}
               </button>
             )}
           </Menu.Item>

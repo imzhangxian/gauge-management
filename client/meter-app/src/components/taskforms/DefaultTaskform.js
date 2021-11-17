@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { t } from 'i18next'
 import { AuthContext } from '../../context/AuthContext'
 
 function DefaultTaskform(props) {
@@ -33,11 +34,11 @@ function DefaultTaskform(props) {
     <div>
       <button className="mx-4 px-4 py-2 bg-blue-500 hover:bg-blue-200 rounded-md"
         onClick={() => {submitForm('approved')}}>
-          Approve
+          {t('taskform.button.approve')}
       </button>
       <button className="mx-4 px-4 py-2 bg-red-500 hover:bg-red-200 rounded-md"
         onClick={() => {submitForm('rejected')}}>
-          Reject
+          {t('taskform.button.reject')}
       </button>
     </div>
     

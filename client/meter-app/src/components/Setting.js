@@ -1,6 +1,8 @@
+import { t } from 'i18next'
+
 function Setting() {
     return (
-      <div>Setting</div>
+      <div>{t('title.setting')}</div>
     )
 }
 

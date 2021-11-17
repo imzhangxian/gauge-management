@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router'
+import { t } from 'i18next'
 import { AuthContext } from '../context/AuthContext'
 import TaskformRouter from './taskforms/TaskformRouter'
 
@@ -60,7 +61,7 @@ function TaskDetails() {
   return (
     <div className='flex flex-col rounded-md bg-gray-50 mt-4 p-2 max-w-xl m-auto'>
     <div className='mb-6'><a className='p-2 rounded-md bg-blue-400 hover:bg-blue-300' 
-      href="#" onClick={() => {navigate('/home/tasks')}}>&lt;&lt;Back</a></div>
+      href="#" onClick={() => {navigate('/home/tasks')}}>{t('button.back')}</a></div>
     <div className='m-2'>
     <ul>
     { task ? Object.keys(task).map((key, i) => {

@@ -1,6 +1,8 @@
+import { t } from 'i18next'
+
 function Reports() {
   return (
-    <div>Reports</div>
+    <div>{t('title.charts')}</div>
   )
 }
 

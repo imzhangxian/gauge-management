@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, Fragment } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Transition, Dialog } from '@headlessui/react'
+import { t } from 'i18next'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 
@@ -65,7 +66,7 @@ function MeterDetails() {
       <a className='p-2 rounded-md bg-blue-400 hover:bg-blue-300' 
         href="#" onClick={() => {navigate('/home/meters')}}>&lt;&lt;Back</a>
     </div>
-    <h3 className='p-4'>Meter {meter.number}</h3>
+    <h3 className='p-4'>{t('title.meter')} {meter.number}</h3>
     <div className='m-2'>
     <ul>
     {Object.keys(meter).map((key, i) => {
@@ -85,7 +86,7 @@ function MeterDetails() {
     </ul>
     </div>
 
-    <h3 className='p-4'>Readings</h3>
+    <h3 className='p-4'>{t('title.readings.history')}</h3>
     <div className='m-2'>
     <ul>
     {readings.map((reading, i) => {
@@ -104,7 +105,7 @@ function MeterDetails() {
     <div className='my-4 mx-auto'>
       <a className='px-16 py-2 rounded-md bg-blue-400 hover:bg-blue-300' 
         href="#" onClick={() => {setIsReadingOpen(true)}}>
-          Read
+          {t('button.read')}
       </a>
     </div>
     <Transition appear show={isReadingOpen} as={Fragment}>
@@ -116,7 +117,7 @@ function MeterDetails() {
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           <div className="relative bg-white rounded max-w-sm mx-auto p-4">
             <Dialog.Title as="h3" className="mb-2 text-lg leading-6 font-medium text-gray-900">
-              Input new reading
+              {t('label.input_reading')}
             </Dialog.Title>
             <input className='border-2' 
               type='number' 
@@ -127,13 +128,13 @@ function MeterDetails() {
                 type="button"
                 className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 rounded-md hover:bg-blue-200 "
                 onClick={readMeter} >
-                Read
+                {t('button.read')}
               </button>
               <button
                 type="button"
                 className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200"
                 onClick={() => {setIsReadingOpen(false)}} >
-                Close
+                {t('button.close')}
               </button>
             </div>
           </div>

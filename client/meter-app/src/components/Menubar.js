@@ -1,6 +1,7 @@
 import { useParams } from 'react-router'
 import { Tab } from '@headlessui/react'
 import { AiFillSchedule, AiFillDashboard, AiFillPieChart, AiFillSetting } from 'react-icons/ai'
+import { t } from 'i18next'
 import Meters from './Meters'
 import Tasks from './Tasks'
 import Reports from './Reports'
@@ -20,24 +21,24 @@ function Menubar() {
         <div className="flex justify-evenly w-1/2">
         <Tab className={({ selected }) => selected ? "p-2 bg-blue-300 rounded-lg" : "m-2 bg-blue-50 rounded-lg"}>
           {({ selected }) => selected ? 
-            (<div><AiFillDashboard size={64} color='lavender' /><span>Meters</span></div>) : 
-            (<div><AiFillDashboard size={64} color='royalblue' /><span>Meters</span></div>)}
+            (<div><AiFillDashboard size={64} color='lavender' /><span>{t('menu.meters')}</span></div>) : 
+            (<div><AiFillDashboard size={64} color='royalblue' /><span>{t('menu.meters')}</span></div>)}
 
         </Tab>
         <Tab className={({ selected }) => selected ? "p-2 bg-blue-300 rounded-lg" : "m-2 bg-blue-50 rounded-lg"}>
           {({ selected }) => selected ? 
-            (<div><AiFillSchedule size={64} color='lavender' /><span>Tasks</span></div>) : 
-            (<div><AiFillSchedule size={64} color='royalblue' /><span>Tasks</span></div>)}
+            (<div><AiFillSchedule size={64} color='lavender' /><span>{t('menu.tasks')}</span></div>) : 
+            (<div><AiFillSchedule size={64} color='royalblue' /><span>{t('menu.tasks')}</span></div>)}
         </Tab>
         <Tab className={({ selected }) => selected ? "p-2 bg-blue-300 rounded-lg" : "m-2 bg-blue-50 rounded-lg"}>
           {({ selected }) => selected ? 
-            (<div><AiFillPieChart size={64} color='lavender' /><span>Reports</span></div>) : 
-            (<div><AiFillPieChart size={64} color='royalblue' /><span>Reports</span></div>)}          
+            (<div><AiFillPieChart size={64} color='lavender' /><span>{t('menu.charts')}</span></div>) : 
+            (<div><AiFillPieChart size={64} color='royalblue' /><span>{t('menu.charts')}</span></div>)}          
         </Tab>
         <Tab className={({ selected }) => selected ? "p-2 bg-blue-300 rounded-lg" : "m-2 bg-blue-50 rounded-lg"}>
         {({ selected }) => selected ? 
-            (<div><AiFillSetting size={64} color='lavender' /><span>Setting</span></div>) : 
-            (<div><AiFillSetting size={64} color='royalblue' /><span>Setting</span></div>)}    
+            (<div><AiFillSetting size={64} color='lavender' /><span>{t('menu.setting')}</span></div>) : 
+            (<div><AiFillSetting size={64} color='royalblue' /><span>{t('menu.setting')}</span></div>)}    
         </Tab>
         </div>
       </Tab.List>
