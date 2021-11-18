@@ -62,15 +62,15 @@ function Tasks() {
 
   return (
     <>
-    <div className='flex flex-col mx-auto'>
+    <div className='flex flex-col mx-auto md:w-2/3 w-full'>
     <div className='block'>
-      <div className='p-2 mx-auto'>
-        <h3>{t('title.task')}</h3>
+      <div className='p-2 border-b-2'>
+        <span className='text-lg'>{t('title.task')}</span>
       </div>
       {loading ?   
       <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400"></div> :
-      <ul>
-        {tasks.map((task, i) => {
+      <ul className='py-2'>
+        {(tasks && tasks.length > 0) ? tasks.map((task, i) => {
           return (
           <li key={i}>
             <div className={'p-2 grid grid-cols-2 md:grid-cols-4 hover:bg-blue-100 cursor-pointer ' 
@@ -83,7 +83,9 @@ function Tasks() {
               </div>
             </div>
           </li>)
-        })}
+        }) :  
+        <li><span className='text-gray-500'>{t('label.task_not_found')}</span></li>
+      }
       </ul>
       }
     </div>
@@ -91,11 +93,11 @@ function Tasks() {
     <div className='block mx-auto my-4'>
     </div>
     <div className='block'>
-      <div className='p-2 mx-auto'>
-        <h3>{t('title.workorder')}</h3>
+      <div className='p-2 border-b-2'>
+        <span className='text-lg'>{t('title.workorder')}</span>
       </div>
       <div className='p-2'>
-      <button className="px-6 py-2 bg-blue-500 hover:bg-blue-200 rounded-md"
+      <button className='px-6 py-2 bg-blue-500 hover:bg-blue-200 rounded-md text-blue-200'
         onClick={() => {setShowCreateDialog(true)}} >
           {t('button.create_order')}
       </button>
@@ -103,7 +105,7 @@ function Tasks() {
       {loading ? 
       <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400"></div> :
       <ul>
-        {workorders.map((wo, i) => {
+        {(workorders && workorders.length > 0) ? workorders.map((wo, i) => {
           return (
           <li key={i}>
             <div className={'m-1 p-2 grid grid-cols-2 md:grid-cols-4 hover:bg-blue-100 cursor-pointer '
@@ -117,7 +119,9 @@ function Tasks() {
               </div>
             </div>
           </li>)
-        })}
+        }) : 
+        <li><span className='text-gray-500'>{t('label.workorder_not_found')}</span></li>
+        }
       </ul>
       }
     </div>

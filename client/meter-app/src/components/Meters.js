@@ -58,7 +58,7 @@ function Meters() {
   }
 
   return (
-    <div>
+    <div className='mx-auto md:w-2/3 w-full'>
       {/** search box */}
       <div className="flex flex-grow content-center">
         <input className="text-sm rounded-md ml-auto mr-2 my-auto py-2 pl-10 pr-3 w-3/4" 
