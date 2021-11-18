@@ -40,7 +40,6 @@ function TaskDetails() {
   function displayTaskProperty(task, key) {
     let value = task[key]
     let disp = ''
-    console.log('displaying ' + key)
     switch (key) {
       case 'variables':
         if (value) {

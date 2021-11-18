@@ -1,11 +1,13 @@
-import taskform_mapping from "./TaskformMapping"
 
 async function TaskformRouter(ordertype, taskstep) {
   // return default taskform if not found
   let module
   try {
-    module = await import(`./${ordertype}/${taskform_mapping[ordertype][taskstep]}.js`)
+    let taskform_mapping = await import('./TaskformMapping')
+    let mapping = taskform_mapping.default
+    module = await import(`./${ordertype}/${mapping[ordertype][taskstep]}`)
   } catch (e) {
+    console.log(e)
     module = await import('./DefaultTaskform')
   }
   return module
